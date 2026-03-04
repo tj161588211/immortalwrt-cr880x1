@@ -1,6 +1,9 @@
 name: Build ImmortalWrt for Xiaomi CR880x (IPQ5000)
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       debug:
