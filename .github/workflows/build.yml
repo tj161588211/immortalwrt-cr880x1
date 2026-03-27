@@ -49,7 +49,17 @@ jobs:
       - name: Copy configuration file
         run: |
           cp $CONFIG_FILE immortalwrt/.config
-
+          
+      - name: Remove Chinese default settings
+        run: |
+          cd immortalwrt
+          # 移除中文默认设置及其依赖
+          sed -i '/CONFIG_PACKAGE_default-settings-chn/d' .config
+          sed -i '/CONFIG_PACKAGE_luci-i18n-base-zh-cn/d' .config
+          sed -i '/CONFIG_PACKAGE_luci-i18n.*zh/d' .config
+          # 可选：添加英文版本
+          echo "CONFIG_PACKAGE_default-settings=y" >> .config
+          
       - name: Update feeds
         run: |
           cd immortalwrt
